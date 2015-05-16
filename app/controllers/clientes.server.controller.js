@@ -73,15 +73,59 @@ exports.delete = function(req, res) {
  * List of Clientes
  */
 exports.list = function(req, res) { 
-	Cliente.find().sort('-created').populate('user', 'displayName').exec(function(err, clientes) {
-		if (err) {
+	var cliente = req.cliente ;
+
+	console.info(req.query);
+	var sortObject = {};
+	var count = req.query.count || 5;
+	var page = req.query.page || 1;
+	var filter = {
+		filters: {
+			mandatory: {
+				contains: req.query.filter
+			}
+		}
+	};
+	var pagination = {
+		start: (page - 1) * count,
+		count: count
+	};
+	if (req.query.sorting) {
+		var sortKey = Object.keys(req.query.sorting)[0];
+		var sortValue = req.query.sorting[sortKey];
+		sortObject[sortValue] = sortKey;
+	}
+	else {
+		sortObject.desc = '_id';
+	}
+	var sort = {
+		sort: sortObject
+	};
+
+	cliente
+	.find()
+	.filter(filter)
+	.order(sort)
+	.page(pagination, function(err,clientes) {
+		if(err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
+		}
+		else {
 			res.jsonp(clientes);
 		}
+
 	});
+	// .sort('-created').populate('user', 'displayName').exec(function(err, clientes) {
+	// 	if (err) {
+	// 		return res.status(400).send({
+	// 			message: errorHandler.getErrorMessage(err)
+	// 		});
+	// 	} else {
+	// 		res.jsonp(clientes);
+	// 	}
+	// });
 };
 
 /**

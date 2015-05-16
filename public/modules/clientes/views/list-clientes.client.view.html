@@ -2,7 +2,7 @@
     <div class="page-header">
         <h1>Clientes</h1>
     </div>
-    <div class="list-group">
+    <!-- <div class="list-group">
         <a data-ng-repeat="cliente in clientes" data-ng-href="#!/clientes/{{cliente._id}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
@@ -18,6 +18,52 @@
                 <h3>Promedio: <span class="list-group-item-heading" data-ng-bind="cliente.promedio"></span></h3>
             </div>
         </a>
+    </div> -->
+<!--     <div>
+        <table ng-table>
+            <tr data-ng-table="cliente in clientes" data-ng-href="#!/clientes/{{cliente._id}}">
+                <td data-title="'Nombre'" data-ng-bind="cliente.name"></td>
+                <td data-title="'Boleta'" data-ng-bind="cliente.boleta"></td>
+                <td data-title="'Carrera'" data-ng-bind="cliente.carrera"></td>
+                <td data-title="'Promedio'" data-ng-bind="cliente.promedio"></td>
+                <td>
+                    <div class="table-actions">
+                        <a class="btn btn-default" title="Visualizar" href="#!/clientes/{{cliente._id}}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        <a class="btn btn-default" title="Edit" href="#!/clientes/{{cliente._id}}/edit">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        <button type="button" class="btn btn-danger" title="Eliminar" data-ng-click="remove(cleinte)">
+                            <span class="glyphicon glyphicon-circle"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div> -->
+    <div>
+        <table ng-table="tableParams">
+            <tr ng-repeat="cliente in $data">
+                <td data-title="'Nombre'" sortable="'name'">{{cliente.name}}</td>
+                <td data-title="'Boleta'" sortable="'boleta'">{{cliente.boleta}}</td>
+                <td data-title="'Carrera'" sortable="'carrera'">{{cliente.carrera}}</td>
+                <td data-title="'Promedio'" sortable="'promedio'">{{cliente.promedio}}</td>
+                <td>
+                    <div class="table-actions">
+                        <a class="btn btn-default" title="Visualizar" href="#!/clientes/{{cliente._id}}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        <a class="btn btn-default" title="Edit" href="#!/clientes/{{cliente._id}}/edit">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        <button type="button" class="btn btn-danger" title="Eliminar" data-ng-click="remove(cliente)">
+                            <span class="glyphicon glyphicon-circle"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!clientes.$resolved || clientes.length">
     	No Clientes yet, why don't you <a href="/#!/clientes/create">create one</a>?

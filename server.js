@@ -7,6 +7,8 @@ var init = require('./config/init')(),
 	mongoose = require('mongoose'),
 	chalk = require('chalk');
 
+	require('mongoose-middleware').initialize(mongoose);
+
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
